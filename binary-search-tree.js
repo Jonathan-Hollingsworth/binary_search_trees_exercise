@@ -97,7 +97,6 @@ class BinarySearchTree {
     function check(node) {
       if (!node) return
 
-      console.log(node)
       if (node.val === val) return node
 
       let checkNext = val < node.val ? node.left : node.right;
@@ -111,28 +110,67 @@ class BinarySearchTree {
    * Return an array of visited nodes. */
 
   dfsPreOrder() {
+    const visited = []
 
+    function preOrderTraverse(node) {
+      visited.push(node.val);
+      if (node.left) preOrderTraverse(node.left);
+      if (node.right) preOrderTraverse(node.right);
+    }
+
+    preOrderTraverse(this.root)
+    return visited
   }
 
   /** dfsInOrder(): Traverse the array using in-order DFS.
    * Return an array of visited nodes. */
 
   dfsInOrder() {
+    const visited = []
 
+    function inOrderTraverse(node) {
+      if (node.left) inOrderTraverse(node.left);
+      visited.push(node.val);
+      if (node.right) inOrderTraverse(node.right);
+    }
+
+    inOrderTraverse(this.root)
+    return visited
   }
 
   /** dfsPostOrder(): Traverse the array using post-order DFS.
    * Return an array of visited nodes. */
 
   dfsPostOrder() {
+    const visited = []
 
+    function postOrderTraverse(node) {
+      if (node.left) postOrderTraverse(node.left);
+      if (node.right) postOrderTraverse(node.right);
+      visited.push(node.val);
+    }
+
+    postOrderTraverse(this.root)
+    return visited
   }
 
   /** bfs(): Traverse the array using BFS.
    * Return an array of visited nodes. */
 
   bfs() {
+    const visited = []
+    let toVisitQueue = [this.root];
 
+    while (toVisitQueue.length) {
+      let current = toVisitQueue.shift();
+
+      if (current) visited.push(current.val)
+
+      if(current.left !== null)toVisitQueue.push(current.left)
+      if(current.right !== null)toVisitQueue.push(current.right)
+    }
+
+    return visited
   }
 
   // /** Further Study!
